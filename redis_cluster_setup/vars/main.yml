@@ -1,0 +1,10 @@
+---
+# vars file for redis_cluster_setup
+redis_downloading_path: "http://download.redis.io/redis-stable.tar.gz"
+redis_dest_path: "/opt"
+redis_downloaded_filename: "redis-stable.tar.gz"
+redis_source_dir: "redis-stable"
+redis_port: 6379
+redis_cluster_replicas: 0
+master_node_host: "" 
+redis_node_list: "{{ groups['all'] | map('extract', hostvars, ['ansible_default_ipv4', 'address']) | map('regex_replace', '^(.*)$','\\1:6379') | join(' ') }}"

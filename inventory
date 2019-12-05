@@ -1,0 +1,4 @@
+[node1]
+app1 ansible_ssh_host=172.31.90.79 ansible_ssh_user=ubuntu ansible_ssh_private_key_file=/root/keydir/aws_practise.pem
+app2 ansible_ssh_host=172.31.89.193 ansible_ssh_user=ubuntu ansible_ssh_private_key_file=/root/keydir/aws_practise.pem
+app3 ansible_ssh_host=172.31.32.207 ansible_ssh_user=ubuntu ansible_ssh_private_key_file=/root/keydir/aws_practise.pem

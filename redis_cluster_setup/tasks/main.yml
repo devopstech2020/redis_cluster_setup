@@ -1,0 +1,39 @@
+---
+ - name: installing resuired packages
+   apt:
+    name: "{{ item  }}"
+   with_items:
+    - "build-essential"
+
+ - name: downloading redis 
+   get_url:
+    url: "{{ redis_downloading_path  }}"
+    dest: "{{ redis_dest_path  }}"
+
+ - name: archieve redis downloaded dir
+   unarchive:
+    src: "{{ redis_dest_path  }}/{{redis_downloaded_filename  }}"
+    dest: "{{ redis_dest_path  }}"
+
+ - name: compling redis
+   shell: make MALLOC=jemalloc
+   args:
+    chdir: "{{ redis_dest_path  }}/{{ redis_source_dir }}"
+    executable: /bin/bash
+
+ - name: copying configuration file
+   template:
+    src: redis.j2
+    dest: "{{ redis_dest_path  }}/{{ redis_source_dir }}/redis.conf"  
+
+ - name: copy systemd file
+   copy:
+    src: ../files/redis.service
+    dest: /etc/systemd/system/redis.service
+   notify:
+     - Start Redis
+
+ - name: creating cluster
+   shell: "{{ redis_dest_path  }}/{{ redis_source_dir }}/src/redis-cli --cluster create {{ redis_node_list  }} --cluster-replicas {{ redis_cluster_replicas }}" 
+   when: ansible_hostname == "ip-172-31-90-79"
+

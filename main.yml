@@ -1,0 +1,10 @@
+---
+ - hosts: all
+   become: yes
+   roles:
+    - role: redis_cluster_setup
+
+# - hosts: node1
+#   become: yes
+#   roles: 
+#    - role: create_redis_cluster

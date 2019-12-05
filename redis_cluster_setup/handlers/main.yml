@@ -1,0 +1,4 @@
+---
+# handlers file for redis_cluster_setup
+  - name: Start Redis
+    service: name=redis state=restarted

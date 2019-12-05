@@ -1,0 +1,16 @@
+[Unit]
+Description=Redis
+After=network.target
+
+[Service]
+User=root
+Group=root
+ExecStart=/opt/redis-stable/src/redis-server /opt/redis-stable/redis.conf
+ExecStop=/opt/redis-stable/src/redis-cli shutdown
+RestartSec=5s
+Restart=on-success
+daemonize=no
+supervised=no
+
+[Install]
+WantedBy=multi-user.target
